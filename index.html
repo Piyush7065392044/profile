@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piyush | Flutter & ML Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root{
+        --accent:linear-gradient(135deg,#ffffff 0%,#c0c0c0 100%);
+        --txt:#f0f0f0;
+        --bg-blur:rgba(255,255,255,0.08);
+        --glass:backdrop-filter:blur(12px) saturate(180%);
+      }
+      *{margin:0;padding:0;box-sizing:border-box}
+      html,body{scroll-behavior:smooth}
+      body{
+        background:#000;
+        color:var(--txt);
+        line-height:1.8;
+        font-family:'Cormorant Garamond',serif;
+        letter-spacing:.4px;
+      }
+      .video-bg{
+        position:fixed;
+        top:0;left:0;width:100%;height:100%;
+        object-fit:cover;z-index:-2;
+        filter:grayscale(100%) brightness(.35);
+        animation:float 24s ease-in-out infinite;
+      }
+      @keyframes float{50%{transform:translateY(-6px) scale(1.01)}}
+      nav{
+        position:fixed;top:0;left:0;width:100%;
+        padding:18px 7%;
+        display:flex;justify-content:space-between;align-items:center;
+        z-index:1000;
+        background:var(--bg-blur);
+        var(--glass);
+        border-bottom:1px solid rgba(255,255,255,.12);
+        animation:slideDown .6s ease forwards;
+      }
+      @keyframes slideDown{from{transform:translateY(-100%)}}
+      nav .logo{
+        font-weight:900;
+        font-size:1.6em;
+        background:var(--accent);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        font-family:'Playfair Display',serif;
+        letter-spacing:1px;
+      }
+      nav ul{display:flex;gap:32px;list-style:none}
+      nav ul li a{
+        color:var(--txt);
+        text-decoration:none;
+        font-weight:600;
+        font-size:.95rem;
+        position:relative;
+        transition:.3s;
+        font-family:'Playfair Display',serif;
+      }
+      nav ul li a::after{
+        content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;
+        background:var(--accent);transition:.3s;
+      }
+      nav ul li a:hover::after{width:100%}
+      section{
+        padding:120px 7% 80px;
+        min-height:100vh;
+        display:flex;flex-direction:column;justify-content:center;
+        animation:fadeUp .8s ease forwards;
+      }
+      @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}}
+      h1,h2{
+        font-weight:900;
+        margin-bottom:22px;
+        background:var(--accent);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        font-family:'Playfair Display',serif;
+        letter-spacing:1.2px;
+      }
+      h1{font-size:3.2em}
+      h2{font-size:2.4em}
+      p{max-width:720px;font-size:1.15em;margin-bottom:36px}
+      .btn{
+        display:inline-block;
+        padding:14px 36px;
+        background:transparent;
+        color:#fff;
+        border:1px solid rgba(255,255,255,.6);
+        border-radius:30px;
+        font-weight:600;
+        cursor:pointer;
+        transition:.3s;
+        box-shadow:0 0 12px rgba(255,255,255,.15);
+        font-family:'Playfair Display',serif;
+        letter-spacing:1px;
+      }
+      .btn:hover{
+        background:rgba(255,255,255,.1);
+        box-shadow:0 0 20px rgba(255,255,255,.25);
+        transform:translateY(-2px)
+      }
+      .skills-grid,.projects-grid{
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+        gap:32px;
+        margin-top:40px;
+      }
+      .skill-card,.project-card{
+        background:var(--bg-blur);
+        border:1px solid rgba(255,255,255,.15);
+        border-radius:18px;
+        padding:28px 20px;
+        text-align:center;
+        transition:.4s;
+        var(--glass);
+      }
+      .skill-card:hover,.project-card:hover{
+        transform:translateY(-6px) scale(1.03);
+        border-color:#fff;
+        box-shadow:0 12px 30px rgba(255,255,255,.1);
+      }
+      .skill-card i{font-size:2.6em;background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+      .skill-card h3{font-size:1.15em;margin-bottom:6px;font-family:'Playfair Display',serif}
+      .project-card img{width:100%;height:170px;object-fit:cover;border-radius:12px;margin-bottom:14px;filter:grayscale(80%) contrast(1.1)}
+      .project-content h3{font-size:1.3em;margin-bottom:8px;font-family:'Playfair Display',serif}
+      .tags{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;justify-content:center}
+      .tags span{
+        background:rgba(255,255,255,.12);
+        padding:4px 12px;
+        border-radius:15px;
+        font-size:.75em;
+        color:var(--txt);
+        font-family:'Playfair Display',serif;
+      }
+      .links a{
+        margin:0 8px;
+        color:#fff;
+        font-weight:600;
+        font-size:.9em;
+        text-decoration:none;
+        transition:.3s;
+      }
+      .links a:hover{color:#c0c0c0}
+      .timeline{position:relative;max-width:750px;margin:40px auto}
+      .timeline::after{
+        content:'';position:absolute;width:3px;background:var(--accent);top:0;bottom:0;left:50%;margin-left:-2px;
+      }
+      .timeline-item{padding:10px 25px;position:relative;width:50%}
+      .timeline-item:nth-child(odd){left:0}
+      .timeline-item:nth-child(even){left:50%}
+      .timeline-item::after{
+        content:'';position:absolute;width:16px;height:16px;background:var(--accent);
+        border-radius:50%;top:22px;z-index:1;
+      }
+      .timeline-item:nth-child(odd)::after{right:-8px}
+      .timeline-item:nth-child(even)::after{left:-8px}
+      .timeline-content{
+        background:var(--bg-blur);
+        border:1px solid rgba(255,255,255,.15);
+        border-radius:12px;
+        padding:20px 24px;
+        color:var(--txt);
+        font-size:.95em;
+        var(--glass);
+      }
+      form{max-width:750px;margin-top:20px}
+      input,textarea{
+        width:100%;
+        padding:15px 18px;
+        margin-bottom:20px;
+        background:var(--bg-blur);
+        border:1px solid rgba(255,255,255,.3);
+        border-radius:12px;
+        color:var(--txt);
+        outline:none;
+        var(--glass);
+        font-family:'Cormorant Garamond',serif;
+        font-size:1em;
+      }
+      input::placeholder,textarea::placeholder{color:var(--txt);opacity:.7}
+      textarea{min-height:150px;resize:vertical}
+      footer{
+        text-align:center;
+        padding:35px 7%;
+        background:transparent;
+        color:var(--txt);
+        border-top:1px solid rgba(255,255,255,.15);
+      }
+      footer .socials a{color:var(--txt);font-size:1.6em;margin:0 12px;transition:.3s}
+      footer .socials a:hover{color:#c0c0c0;transform:scale(1.15)}
+      @media(max-width:768px){
+        nav{flex-direction:column;align-items:flex-start}
+        nav ul{order:3;width:100%;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
+        h1{font-size:2.6em}
+        h2{font-size:1.8em}
+      }
+      @media(max-width:480px){
+        section{padding:80px 4%}
+        .projects-grid{grid-template-columns:1fr}
+        .skills-grid{grid-template-columns:1fr}
+      }
+    </style>
+    <base target="_blank" />
+  </head>
+
+  <body>
+    <!-- Background Video -->
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source
+        src="https://motionbgs.com/media/8430/assassins-creed-shadows-silent-snow.960x540.mp4"
+        type="video/mp4"
+      />
+    </video>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">Piyush</div>
+      <ul>
+        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+      <h1>
+        Hi, I'm
+        <span
+          style="
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          "
+          >Piyush</span
+        >
+      </h1>
+      <p>
+        Final-year BCA student at IITM College (MDU).<br />
+        Flutter & Web Developer • ML & Prompt-Engineering Enthusiast
+      </p>
+      <p
+        style="
+          font-size: 1.3em;
+          font-weight: 600;
+          background: var(--accent);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-top: -10px;
+        "
+      >
+        I'm actively freelancing on Upwork & Fiverr — delivering Flutter &
+        full-stack solutions worldwide.
+      </p>
+      <a class="btn" href="#projects">Explore My Work</a>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        21-year-old developer from New Delhi, pursuing BCA at
+        <strong>IITM College Janakpuri (MDU)</strong>.<br /><br />
+        I build beautiful, performant Flutter apps for iOS & Android and craft
+        responsive web front-ends.<br /><br />
+        <strong
+          style="
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          "
+        >
+          I'm also an active freelancer (Upwork & Fiverr) delivering Flutter &
+          full-stack projects to global clients. </strong
+        ><br /><br />
+        When not coding you'll spot me solving DSA problems or fine-tuning LLM
+        prompts.
+      </p>
+    </section>
+<!-- Skills -->
+<section id="skills">
+  <h2 style="color:white;">Core Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <i class="fas fa-mobile-alt"></i>
+      <h3 style="color:white;">
+        Flutter / React.Native
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">iOS & Android apps</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-laptop-code"></i>
+      <h3 style="color:white;">
+        Web Dev
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">HTML / CSS / JS / React</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-brain"></i>
+      <h3 style="color:white;">
+        ML Basics
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">Scikit-learn • TensorFlow</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-code"></i>
+      <h3 style="color:white;">
+        DSA & CP
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">Python • LeetCode top 10 %</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-robot"></i>
+      <h3 style="color:white;">
+        Prompt Engineering
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">LLM fine-tuning</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-database"></i>
+      <h3 style="color:white;">
+        Backend
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">Node • Express • MongoDB</p>
+    </div>
+    <div class="skill-card">
+      <i class="fab fa-git-alt"></i>
+      <h3 style="color:white;">
+        Tools
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">Git • Docker • Postman</p>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-cloud"></i>
+      <h3 style="color:white;">
+        Cloud Basics
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+           style="color:white; text-decoration:underline; font-size:0.9em; margin-left:6px;">
+          GitHub
+        </a>
+      </h3>
+      <p style="color:white;">Firebase • Render</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Selected Projects</h2>
+      <div class="projects-grid">
+        <!-- Flutter Chat App -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Flutter Chat App</h3>
+            <p>
+              Real-time messaging with Flutter, Firebase Auth & Cloud Firestore.
+            </p>
+            <div class="tags">
+              <span>Flutter</span><span>Firebase Auth</span
+              ><span>FireStore</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Demo</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt-Engineering Playground -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Prompt-Engineering Playground</h3>
+            <p>
+              Interactive web-tool to test & compare LLM prompts with token-cost
+              analytics.
+            </p>
+            <div class="tags">
+              <span>React</span><span>OpenAI API</span><span>Tailwind</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- ML Sentiment Analyzer -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>ML Sentiment Analyzer</h3>
+            <p>
+              Python Flask API that predicts sentiment with 92 % accuracy using
+              NLTK & scikit-learn.
+            </p>
+            <div class="tags">
+              <span>Python</span><span>Flask</span><span>scikit-learn</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- DSA Visualizer -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>DSA Visualizer</h3>
+            <p>
+              Interactive animations for sorting & searching algorithms in pure
+              JavaScript.
+            </p>
+            <div class="tags">
+              <span>JavaScript</span><span>Canvas</span><span>HTML/CSS</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Networking CLI Tool -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Networking CLI Tool</h3>
+            <p>
+              Python CLI that scans open ports and performs basic network
+              diagnostics.
+            </p>
+            <div class="tags">
+              <span>Python</span><span>Socket Programming</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Portfolio Website -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Developer Portfolio v3</h3>
+            <p>
+              Responsive single-page site showcasing projects, skills & contact
+              form powered by Firebase Functions.
+            </p>
+            <div class="tags">
+              <span>HTML/CSS/JS</span><span>Firebase Hosting</span
+              ><span>Cloud Functions</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Amazon Clone -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Amazon Clone</h3>
+            <p>
+              Full-stack e-commerce platform with Stripe payments, admin
+              dashboard & real-time inventory.
+            </p>
+            <div class="tags">
+              <span>React</span><span>Node</span><span>Stripe</span
+              ><span>MongoDB</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Netflix Clone -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Netflix Clone</h3>
+            <p>
+              Responsive streaming UI powered by TMDB API, React, and Firebase
+              hosting with user auth.
+            </p>
+            <div class="tags">
+              <span>React</span><span>Firebase Auth</span><span>TMDB API</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Demo</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Zomato Clone -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Zomato Clone</h3>
+            <p>
+              Food-delivery app clone featuring live menus, cart, checkout and
+              map-based restaurant search.
+            </p>
+            <div class="tags">
+              <span>React Native</span><span>Node</span><span>Mapbox</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Blinkit Clone -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Blinkit Clone</h3>
+            <p>
+              10-minute grocery app with real-time order tracking, payment
+              gateway & delivery ETA.
+            </p>
+            <div class="tags">
+              <span>React</span><span>Node</span><span>Razorpay</span
+              ><span>Socket.io</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Code</a
+              >
+              <a href="#" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Live</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Freelancing -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Freelancing: Flutter & Web Solutions</h3>
+            <p>
+              Delivered 20+ custom Flutter apps & websites (iOS, Android, Web)
+              for global clients on Upwork & Fiverr.
+            </p>
+            <div class="tags">
+              <span>Flutter</span><span>Firebase</span><span>Upwork</span>
+            </div>
+            <div class="links">
+              <a
+                href="https://github.com/Piyush7065392044"
+                target="_blank"
+                ><i class="fab fa-github"></i> Samples</a
+              >
+              <a href="https://github.com/Piyush7065392044" target="_blank"
+                ><i class="fas fa-external-link-alt"></i> Profile</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2>Education & Certifications</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Bachelor of Computer Applications (BCA)</h3>
+            <span>2022 – 2025</span>
+            <p>
+              IITM College Janakpuri, Maharshi Dayanand University (MDU), New
+              Delhi
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Higher Secondary (CBSE)</h3>
+            <span>2020 – 2021</span>
+            <p>CBSE, New Delhi</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>Google UX Design Specialization</h3>
+            <span>Coursera – 2023</span>
+            <p>
+              7-course program covering user research, wireframing & prototyping
+              in Figma.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>ML & Prompt-Engineering Bootcamp</h3>
+            <span>2024</span>
+            <p>
+              Hands-on scikit-learn, LLM fine-tuning & prompt-optimization
+              techniques.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact & Socials</h2>
+      <p>Drop a line or connect on any platform below.</p>
+      <form action="https://formspree.io/f/mqazkynr" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="socials">
+        <a href="https://github.com/Piyush7065392044" target="_blank"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/piyush-kumar-1971b3269/"
+          target="_blank"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <a href="mailto:piyushkumar7065392044@gmail.com"
+          ><i class="fas fa-envelope"></i
+        ></a>
+        <a href="https://x.com/PiyUsh750952" target="_blank"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </div>
+      <p>&copy; 2025 Piyush. Built with code & curiosity.</p>
+    </footer>
+
+    <script>
+      const sections = document.querySelectorAll("section");
+      const navLinks = document.querySelectorAll("nav ul li a");
+      window.addEventListener("scroll", () => {
+        let cur = "";
+        sections.forEach((section) => {
+          if (scrollY >= section.offsetTop - 100)
+            cur = section.getAttribute("id");
+        });
+        navLinks.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href").slice(1) === cur
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
